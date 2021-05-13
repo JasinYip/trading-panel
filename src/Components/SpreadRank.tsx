@@ -1,5 +1,6 @@
 import React, { useEffect, useReducer } from 'react'
 import { Table } from 'antd';
+import './SpreadRank.css'
 import spreadsReducer, { ACTION_NAME, Spread } from '../modules/spreadsReducer';
 import { reverse, sortBy } from 'lodash';
 import FCManager from '../modules/FCManager';
@@ -10,12 +11,18 @@ function useForceUpdate() {
   return dispatch;
 }
 
+const highlightSymbols = [
+  'BNB'
+]
+
 interface SpreadTableItem {
   symbol: string
   currentPrice: string
   futurePrice: string
   diffRate: string
 }
+
+const shouldBeHighlight = (symbol: string): boolean => !!highlightSymbols.find(highlightSymbol => symbol.startsWith(highlightSymbol));
 
 export default function SpreadRank () {
   const [spreads, dispatchSpreads] = useReducer(spreadsReducer, {});
@@ -99,6 +106,7 @@ export default function SpreadRank () {
         size="small"
         columns={tableColumns}
         dataSource={tableDataSource}
+        rowClassName={spread => shouldBeHighlight(spread.symbol) ? 'highlight' : ''}
       />
     </div>
   })
