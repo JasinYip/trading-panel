@@ -38,5 +38,5 @@ jobs:
 
       - name: Deploy to Aliyun OSS
         run: |
-          echo ${{ ALIYUN_OSS_ACCESS_KEY_ID }}
-          echo ${{ ALIYUN_OSS_ACCESS_KEY_SECRET }}
+          echo ${{ secrets.ALIYUN_OSS_ACCESS_KEY_ID }}
+          echo ${{ secrets.ALIYUN_OSS_ACCESS_KEY_SECRET }}
