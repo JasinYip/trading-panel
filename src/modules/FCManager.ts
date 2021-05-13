@@ -1,8 +1,6 @@
 import axios from 'axios'
 import { isFutureSymbol } from './util'
-import FutureCurrentArbitrageMonitor from './FutureCurrentArbitrageMonitor';
 import { Subject } from 'rxjs';
-import { throttleTime } from 'rxjs/operators';
 
 enum TickerType {
   CURRENT = 'CURRENT',
@@ -57,8 +55,6 @@ export interface PriceVariation {
 }
 
 export default class FCManager {
-  monitors: FutureCurrentArbitrageMonitor[] = []
-
   currentWsClient = new WebSocket('wss://stream.binance.com/ws')
   futureWsClient = new WebSocket('wss://dstream.binance.com/ws')
 
