@@ -5,7 +5,7 @@ import SpreadRank from './Components/SpreadRank'
 function App() {
 
   return (
-    <div className="App">
+    <div className="App" style={{ padding: 10 }}>
       <SpreadRank />
     </div>
   )
