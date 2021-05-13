@@ -2,7 +2,7 @@
 
 name: AutoBuild
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
@@ -36,7 +36,11 @@ jobs:
       - name: Building
         run: npm run build
 
-      - name: Deploy to Aliyun OSS
-        run: |
-          echo ${{ secrets.ALIYUN_OSS_ACCESS_KEY_ID }}
-          echo ${{ secrets.ALIYUN_OSS_ACCESS_KEY_SECRET }}
+      # Deploy to Aliyun OSS
+      - uses: manyuanrong/setup-ossutil@v2.0
+        with:
+          endpoint: "oss-cn-zhangjiakou.aliyuncs.com"
+          access-key-id: ${{ secrets.ALIYUN_OSS_ACCESS_KEY_ID }}
+          access-key-secret: ${{ secrets.ALIYUN_OSS_ACCESS_KEY_SECRET }}
+          sts-token: "sts_token"
+      - run: ossutil cp -rf . oss://trading-panel
