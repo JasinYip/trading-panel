@@ -42,4 +42,4 @@ jobs:
           endpoint: "oss-cn-zhangjiakou.aliyuncs.com"
           access-key-id: ${{ secrets.ALIYUN_OSS_ACCESS_KEY_ID }}
           access-key-secret: ${{ secrets.ALIYUN_OSS_ACCESS_KEY_SECRET }}
-      - run: ossutil cp -rf dist/ oss://trading-panel/
+      - run: ossutil cp -rf dist oss://trading-panel/
