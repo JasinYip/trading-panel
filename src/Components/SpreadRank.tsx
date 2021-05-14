@@ -99,11 +99,11 @@ export default function SpreadRank () {
     }))
 
     return <div>
-      <h4 style={{textAlign: 'left'}}>{deliveryDate}</h4>
       <Table
         style={{ width: 600, marginBottom: 30 }}
         pagination={false}
         size="small"
+        title={() => deliveryDate}
         columns={tableColumns}
         dataSource={tableDataSource}
         rowClassName={spread => shouldBeHighlight(spread.symbol) ? 'highlight' : ''}
