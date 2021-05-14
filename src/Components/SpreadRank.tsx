@@ -52,6 +52,9 @@ export default function SpreadRank () {
   }, [])
 
   const spreadsRank = reverse(sortBy(Object.values(spreads).filter(s => s.diffRate !== Infinity), 'diffRate'));
+  if (spreadsRank.length === 0) {
+    return <div>loading...</div>
+  }
 
   const tableColumns: ColumnsType<SpreadTableItem> = [
     {
