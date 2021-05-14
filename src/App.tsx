@@ -6,7 +6,6 @@ function App() {
 
   return (
     <div className="App" style={{ padding: 10 }}>
-      <h1>Trading Panel</h1>
       <SpreadRank />
     </div>
   )
