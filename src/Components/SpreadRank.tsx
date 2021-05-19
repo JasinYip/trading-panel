@@ -40,7 +40,7 @@ export default observer(function SpreadRank ({ spreadsProvider }: { spreadsProvi
   const forceUpdate = useForceUpdate();
 
   useEffect(() => {
-    setInterval(forceUpdate, 300)
+    setInterval(forceUpdate, 1000)
   }, [])
 
   if (spreadsProvider.spreadRank.length === 0) {
