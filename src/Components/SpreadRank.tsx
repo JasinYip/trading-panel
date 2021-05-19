@@ -74,7 +74,7 @@ export default observer(function SpreadRank ({ spreadsProvider }: { spreadsProvi
       align: 'right',
     },
     {
-      title: 'Rate % P. A',
+      title: '% P. A',
       dataIndex: 'diffRateAnnual',
       key: 'diffRateAnnual',
       align: 'right',
