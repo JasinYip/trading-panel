@@ -54,7 +54,8 @@ export interface PriceVariation {
   eventTime: number
 }
 
-export default class FCManager {
+export default class PricesSubscriber
+ {
   currentWsClient = new WebSocket('wss://stream.binance.com/ws')
   futureWsClient = new WebSocket('wss://dstream.binance.com/ws')
 
@@ -148,5 +149,4 @@ export default class FCManager {
     this._subscribeTicker(TickerType.CURRENT, symbols.map(sybl => sybl.currentSymbol + '@aggTrade'))
     this._subscribeTicker(TickerType.FUTURE, symbols.map(sybl => sybl.futureSymbol + '@aggTrade'))
   }
-
 }

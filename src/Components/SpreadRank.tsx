@@ -1,10 +1,22 @@
 import React, { useEffect, useReducer } from 'react'
 import { Table } from 'antd';
 import './SpreadRank.css'
-import spreadsReducer, { ACTION_NAME, Spread } from '../modules/spreadsReducer';
-import { reverse, sortBy } from 'lodash';
-import FCManager from '../modules/FCManager';
 import { ColumnsType } from 'antd/lib/table';
+import { observer } from 'mobx-react';
+import SpreadProvider from '../modules/SpreadsProvider';
+import moment from 'moment';
+
+/**
+ * 计算距离交割日的天数
+ *
+ * @param {string} futureDate 交割日，如 '210925'
+ * @returns {number} 天数
+ */
+ function getDayDiff (futureDate: string): number {
+  const today = moment();
+  const future = moment('20' + futureDate);
+  return future.diff(today, 'days')
+}
 
 function useForceUpdate() {
   const [_, dispatch] = useReducer(x => x + 1, 0);
@@ -24,35 +36,14 @@ interface SpreadTableItem {
 
 const shouldBeHighlight = (symbol: string): boolean => !!highlightSymbols.find(highlightSymbol => symbol.startsWith(highlightSymbol));
 
-export default function SpreadRank () {
-  const [spreads, dispatchSpreads] = useReducer(spreadsReducer, {});
+export default observer(function SpreadRank ({ spreadsProvider }: { spreadsProvider: SpreadProvider }) {
   const forceUpdate = useForceUpdate();
 
   useEffect(() => {
-    setInterval(forceUpdate, 500)
-    const fcManager = new FCManager
-    fcManager.currentPrice$.subscribe({
-      next(priceVariation) {
-        dispatchSpreads({
-          type: ACTION_NAME.UPDATE_CURRENT_PRICE,
-          price: priceVariation.price,
-          symbol: priceVariation.symbol,
-        })
-      }
-    })
-    fcManager.futurePrice$.subscribe({
-      next (priceVariation) {
-        dispatchSpreads({
-          type: ACTION_NAME.UPDATE_FUTURE_PRICE,
-          price: priceVariation.price,
-          symbol: priceVariation.symbol,
-        })
-      }
-    })
+    setInterval(forceUpdate, 300)
   }, [])
 
-  const spreadsRank = reverse(sortBy(Object.values(spreads).filter(s => s.diffRate !== Infinity), 'diffRate'));
-  if (spreadsRank.length === 0) {
+  if (spreadsProvider.spreadRank.length === 0) {
     return <div>loading...</div>
   }
 
@@ -77,42 +68,41 @@ export default function SpreadRank () {
       align: 'right',
     },
     {
-      title: 'Diff Rate',
+      title: 'Spot Rate',
       dataIndex: 'diffRate',
       key: 'diffRate',
       align: 'right',
     },
+    {
+      title: 'Rate % P. A',
+      dataIndex: 'diffRateAnnual',
+      key: 'diffRateAnnual',
+      align: 'right',
+    },
   ]
 
-  const groups = spreadsRank.reduce((rst, spread) => {
-    const deliveryDateStr = spread.symbol.split('_')[1]
-    if (!rst.get(deliveryDateStr)) { rst.set(deliveryDateStr, []) }
-
-    rst.get(deliveryDateStr)!.push(spread)
-
-    return rst
-  }, new Map<string, Spread[]>())
-
-  const tables = Array.from(groups.entries()).map(([deliveryDate, rank]) => {
+  const tables = Array.from(spreadsProvider.groupedSpreadRank.entries()).map(([deliveryDate, rank]) => {
+    const remainingDays = getDayDiff(deliveryDate)
     const tableDataSource: SpreadTableItem[] = rank.map(({ symbol, currentPrice, futurePrice, diffRate }) => ({
       symbol: symbol.toUpperCase(),
       currentPrice: currentPrice.toFixed(3),
       futurePrice: futurePrice.toFixed(3),
       diffRate: `${(diffRate * 100).toFixed(2)}%`,
+      diffRateAnnual: `${(diffRate / (remainingDays / 365) * 100).toFixed(2)}%`,
     }))
 
-    return <div>
-      <Table
-        style={{ width: 600, marginBottom: 30 }}
-        pagination={false}
-        size="small"
-        title={() => deliveryDate}
-        columns={tableColumns}
-        dataSource={tableDataSource}
-        rowClassName={spread => shouldBeHighlight(spread.symbol) ? 'highlight' : ''}
-      />
-    </div>
+    return <Table
+      key={deliveryDate}
+      style={{ width: 600, marginBottom: 30 }}
+      pagination={false}
+      size="small"
+      title={() => `${deliveryDate} (~${remainingDays})`}
+      columns={tableColumns}
+      dataSource={tableDataSource}
+      rowKey="symbol"
+      rowClassName={spread => shouldBeHighlight(spread.symbol) ? 'highlight' : ''}
+    />
   })
 
   return <>{...tables}</>
-}
+})
