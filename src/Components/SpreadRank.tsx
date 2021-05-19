@@ -24,7 +24,7 @@ function useForceUpdate() {
 }
 
 const highlightSymbols = [
-  'BNB'
+  'DOT'
 ]
 
 interface SpreadTableItem {
