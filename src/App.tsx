@@ -7,9 +7,6 @@ import SpreadsProvider from './modules/SpreadsProvider'
 const pricesSubscriber = new PricesSubscriber()
 const spreadsProvider = new SpreadsProvider(pricesSubscriber)
 
-window.pricesSubscriber = pricesSubscriber;
-window.spreadsProvider = spreadsProvider;
-
 function App() {
 
   return (
