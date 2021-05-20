@@ -23,8 +23,8 @@ function useForceUpdate() {
   return dispatch;
 }
 
-const highlightSymbols: string[] = [
-  // 'DOT'
+const highlightSymbols = [
+  'ETH'
 ]
 
 interface SpreadTableItem {
