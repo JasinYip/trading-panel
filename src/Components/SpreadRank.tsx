@@ -85,8 +85,8 @@ export default observer(function SpreadRank ({ spreadsProvider }: { spreadsProvi
     const remainingDays = getDayDiff(deliveryDate)
     const tableDataSource: SpreadTableItem[] = rank.map(({ symbol, currentPrice, futurePrice, diffRate }) => ({
       symbol: symbol.toUpperCase(),
-      currentPrice: currentPrice.toFixed(3),
-      futurePrice: futurePrice.toFixed(3),
+      currentPrice: currentPrice.toFixed(2),
+      futurePrice: futurePrice.toFixed(2),
       diffRate: `${(diffRate * 100).toFixed(2)}%`,
       diffRateAnnual: `${(diffRate / (remainingDays / 365) * 100).toFixed(2)}%`,
     }))
@@ -96,7 +96,7 @@ export default observer(function SpreadRank ({ spreadsProvider }: { spreadsProvi
       style={{ width: 600, marginBottom: 30 }}
       pagination={false}
       size="small"
-      title={() => `${deliveryDate} (~${remainingDays}d/${(remainingDays / 30).toFixed(2)}m)`}
+      title={() => `${deliveryDate} ( ~${remainingDays}d. / ${(remainingDays / 30).toFixed(1)}m. )`}
       columns={tableColumns}
       dataSource={tableDataSource}
       rowKey="symbol"
