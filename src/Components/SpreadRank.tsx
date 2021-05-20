@@ -96,7 +96,7 @@ export default observer(function SpreadRank ({ spreadsProvider }: { spreadsProvi
       style={{ width: 600, marginBottom: 30 }}
       pagination={false}
       size="small"
-      title={() => `${deliveryDate} (~${remainingDays}d)`}
+      title={() => `${deliveryDate} (~${remainingDays}d/${(remainingDays / 30).toFixed(2)}m)`}
       columns={tableColumns}
       dataSource={tableDataSource}
       rowKey="symbol"
