@@ -42,11 +42,6 @@ interface BinanceFutureAggTradePayload {
   m: boolean // 买方是否是做市方。如true,则此次成交是一个主动卖出单,否则是一个主动买入单，例： false
 }
 
-interface BinanceResultNullPayload {
-  result: null,
-  id: number
-}
-
 export interface PriceVariation {
   symbol: string
   price: number
@@ -54,8 +49,7 @@ export interface PriceVariation {
   eventTime: number
 }
 
-export default class PricesSubscriber
- {
+export default class PricesSubscriber {
   currentWsClient = new WebSocket('wss://stream.binance.com/ws')
   futureWsClient = new WebSocket('wss://dstream.binance.com/ws')
 

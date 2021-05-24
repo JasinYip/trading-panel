@@ -1,4 +1,3 @@
-import produce from 'immer'
 import { reverse, sortBy } from 'lodash'
 import { observable } from 'mobx'
 import { action, computed } from 'mobx'

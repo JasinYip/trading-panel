@@ -49,6 +49,12 @@ export default observer(function SpreadRank ({ spreadsProvider }: { spreadsProvi
 
   const tableColumns: ColumnsType<SpreadTableItem> = [
     {
+      title: 'exchange',
+      dataIndex: 'exchange',
+      key: 'exchange',
+      align: 'right',
+    },
+    {
       title: 'Symbol',
       dataIndex: 'symbol',
       key: 'symbol',
