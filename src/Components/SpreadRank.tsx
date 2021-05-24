@@ -24,7 +24,7 @@ function useForceUpdate() {
 }
 
 const highlightSymbols = [
-  'ETH'
+  // 'ETH'
 ]
 
 interface SpreadTableItem {
