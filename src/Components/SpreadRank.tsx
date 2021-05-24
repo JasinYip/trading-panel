@@ -23,7 +23,7 @@ function useForceUpdate() {
   return dispatch;
 }
 
-const highlightSymbols = [
+const highlightSymbols: string[] = [
   // 'ETH'
 ]
 
@@ -56,7 +56,7 @@ export default observer(function SpreadRank ({ spreadsProvider }: { spreadsProvi
       width: 1
     },
     {
-      title: 'Current',
+      title: 'Spot',
       dataIndex: 'currentPrice',
       key: 'currentPrice',
       align: 'right',
@@ -68,13 +68,13 @@ export default observer(function SpreadRank ({ spreadsProvider }: { spreadsProvi
       align: 'right',
     },
     {
-      title: 'Spot Rate',
+      title: 'Diff Rate',
       dataIndex: 'diffRate',
       key: 'diffRate',
       align: 'right',
     },
     {
-      title: '% P. A',
+      title: 'ROA',
       dataIndex: 'diffRateAnnual',
       key: 'diffRateAnnual',
       align: 'right',
