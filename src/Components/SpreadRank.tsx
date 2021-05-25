@@ -74,7 +74,7 @@ export default observer(function SpreadRank ({ spreadsProvider }: { spreadsProvi
       align: 'right',
     },
     {
-      title: 'ROA',
+      title: 'APY',
       dataIndex: 'diffRateAnnual',
       key: 'diffRateAnnual',
       align: 'right',
