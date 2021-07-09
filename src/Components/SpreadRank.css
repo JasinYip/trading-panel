@@ -2,3 +2,8 @@
   color: #5571DC;
   font-weight: bold
 }
+
+.ant-table, .ant-table-small .ant-table-thead > tr > th {
+  background-color: black;
+  color: white;
+}
