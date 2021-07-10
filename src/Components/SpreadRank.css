@@ -7,3 +7,7 @@
   background-color: black;
   color: white;
 }
+
+.ant-table-tbody > tr.ant-table-row:hover > td {
+  background-color: rgb(51, 49, 49);
+}
