@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [reactRefresh()],
   build: {
     sourcemap: true,
-    outDir: 'doc',
+    outDir: 'docs',
   },
 })
