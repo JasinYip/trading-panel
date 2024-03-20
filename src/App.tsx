@@ -26,7 +26,10 @@ function App() {
 
   return (<>
     <SpreadRank spreadsProvider={spreadsProvider} />
-    <span >Auto refresh in {formatTime(Math.floor(countdown / 60))}:{formatTime(countdown % 60)}</span>
+    <footer>
+      <p>Binance trading fee(maker/taker): spot 0.1% / 0.1%, future 0.02% / 0.05%</p>
+      <p >Auto refresh in {formatTime(Math.floor(countdown / 60))}:{formatTime(countdown % 60)}</p>
+    </footer>
   </>)
 }
 
